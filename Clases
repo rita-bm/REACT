@@ -1,0 +1,185 @@
+https://github.com/zamarrowski
+
+Repasar clases
+Repasar Visual Studio code
+Repasar REACT
+
+
+INSTALL:
+NODE + NPM + NPX
+cd dir
+npx create-react-app my-app
+
+cd my-app
+npm start
+
+
+REACT:
+
+JSX
+Básicamente es una extensión de la sintáxis de JavaScript y es la manera más como de desarrollar en React.
+
+const element = () => <h1>¡Hola Fictizia!</h1>
+
+//La idea de meter el HTML dentro de JavaScript se basa en el concepto de que la lógica de la interfaz de usuario esta intrínsecamente unida a la lógica de renderizado.
+//De esta forma tenemos un componente que contiene en un solo fichero JavaScript el maquetado y la lógica.
+
+Hay algunos atributos de las etiquetas HTML que cambian:
+class en REACT será className
+onclick en REACT será onClick
+
+1.- Renderizado de variables
+
+*Para utilizar una variable la usaremos entre llaves
+
+const name = 'FICTIZIA'
+const element = () => <h1>Hola {name}</h1>
+
+*Tambien podemos pasarle funciones
+const getName = (user) => user.name
+const element = <h1>Hola {getName()}</h1>
+
+*Podemos utilizar ternarias
+const age = 18
+const element = (age) => <h1>{ age => 18 ? 'adulto' : 'joven' }</h1>
+
+*Padres e hijos
+import React from 'react';
+
+const Child = (props) => {
+    return ( <button onClick={props.onPress}>Presioname</button> );
+}
+ 
+export default Child;
+
+import React from 'react';
+import Child from './Child';
+
+
+const Parent = () => {
+    return ( <Child onPress= { console.log('Hola a todos') }></Child> ); 
+}
+ 
+export default Parent;
+
+
+//////////////
+
+Shortcuts visual studio code
+imr
+sfc
+cc
+ccc
+
+//////////////
+
+*** Componente funcionales ***
+Podemos definir un componente escribiendo una función de JavaScript:
+
+const Element = (props) => <span>{prps.name}</span>
+
+*** Componentes de clase ***
+Podemos definir un componente a traves de una Clase:
+
+class Welcome extends React.Component {
+  render() {
+    return <h1>Hello, {this.props.name}</h1>;
+  }
+}
+
+*///*Las props son de solo lectura. Ya sea que declares un componente como una función o como una clase, este nunca debe modificar sus props.
+*///* Todos los componentes de React deben actuar como funciones puras con respecto a sus props.
+
+Funciones puras (No cambian sus propiedades)
+function sum(a, b) {
+  return a + b
+}
+
+Funciones impuras (Cambian sus propiedades)
+function withdraw(account, amount) {
+  account.total -= amount
+}
+
+/* ESTADO */
+
+const Counter = props => {
+
+  let count = 0
+
+  let increment = () => {
+    count += 1
+  }
+
+  return (
+    <>
+      <div>{count}</div>
+      <button onClick={increment}>Increment</button>
+    </>
+  )
+}
+
+//El estado no se puede modificar directamente, se debe hacer mediante setState
+Si pasamos la función anterior a Clase quedaria asi:
+
+class Counter extends React.Component {
+
+  state = {
+    count: 0
+  }
+
+  increment() {
+    this.setState({ count: this.state.count + 1 })
+  }
+
+  render() {
+    return (
+       <>
+        <div>{this.state.count}</div>
+        <button onClick={() => this.increment()}>Increment</button>
+      </>
+    )
+  }
+}
+
+//Las actualizaciones del estado pueden ser asíncronas por eso si queremos estar seguros de que el estado es el que esperamos usaremos una función para actualizarlo en lugar de un objeto:
+
+this.setState(state => ({
+  count: state.count + 1
+}))
+
+Las actualizaciones de estado se fusionan
+Cuando invocas a setState(), React combina el objeto que proporcionaste con el estado actual.
+
+Puedes tener un objeto:
+state = {
+  posts: [],
+  comments: []
+}
+
+Luego puedes actualizarlas independientemente con invocaciones separadas a setState():
+
+fetchPosts().then(response => {
+  this.setState({
+    posts: response.posts
+  })
+})
+
+fetchComments().then(response => {
+  this.setState({
+    comments: response.comments
+  })
+})
+
+//El estado a menudo se le denomina local o encapsulado. No es accesible desde otro componente excepto de aquel que lo posee y lo asigna.
+
+*Un componente puede elegir pasar su estado como props a sus componentes hijos:
+<h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+
+*También funciona para componentes definidos por el usuario:
+function FormattedDate(props) {
+  return <h2>It is {props.date.toLocaleTimeString()}.</h2>;
+}
+<FormattedDate date={this.state.date} />
+
+
+

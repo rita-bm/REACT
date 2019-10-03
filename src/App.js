@@ -21,16 +21,16 @@ import ElevarEstado from './ElevarEstado';
 import Carrito from './Carrito';
 import Shop from './Shop';
 
+
 class App extends React.Component {
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <Shop></Shop>
+          <ElevarEstado></ElevarEstado>
         </header>
       </div>
     );
   }
-}
 
 export default App;
